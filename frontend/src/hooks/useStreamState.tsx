@@ -37,7 +37,6 @@ export function useStreamState(): StreamStateProps {
         openWhenHidden: true,
         onmessage(msg) {
           if (msg.event === "data") {
-            console.log(msg.data);
             const messages = JSON.parse(msg.data);
             setCurrent((current) => ({
               status: "inflight",
@@ -89,6 +88,13 @@ export function useStreamState(): StreamStateProps {
       setController(null);
       if (clear) {
         setCurrent(null);
+      } else {
+        setCurrent((current) => ({
+          status: "done",
+          messages: current?.messages,
+          run_id: current?.run_id,
+          merge: current?.merge,
+        }));
       }
     },
     [controller]

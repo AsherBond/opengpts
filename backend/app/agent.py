@@ -7,6 +7,7 @@ from langchain_core.runnables import (
     ConfigurableFieldMultiOption,
     RunnableBinding,
 )
+from langgraph.checkpoint import CheckpointAt
 
 from app.agent_types.google_agent import get_google_agent_executor
 from app.agent_types.openai_agent import get_openai_agent_executor
@@ -39,7 +40,7 @@ def get_agent_executor(
     agent: AgentType,
     system_message: str,
 ):
-    checkpointer = RedisCheckpoint()
+    checkpointer = RedisCheckpoint(at=CheckpointAt.END_OF_STEP)
     if agent == AgentType.GPT_35_TURBO:
         llm = get_openai_llm()
         return get_openai_agent_executor(tools, llm, system_message, checkpointer)
