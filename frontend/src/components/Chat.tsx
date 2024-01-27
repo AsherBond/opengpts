@@ -11,7 +11,11 @@ interface ChatProps extends Pick<StreamStateProps, "stream" | "stopStream"> {
 }
 
 export function Chat(props: ChatProps) {
-  const messages = useChatMessages(props.chat.thread_id, props.stream);
+  const messages = useChatMessages(
+    props.chat.thread_id,
+    props.stream,
+    props.stopStream
+  );
   useEffect(() => {
     scrollTo({
       top: document.body.scrollHeight,

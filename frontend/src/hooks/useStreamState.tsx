@@ -93,7 +93,7 @@ export function useStreamState(): StreamStateProps {
           status: "done",
           messages: current?.messages,
           run_id: current?.run_id,
-          merge: current?.merge,
+          merge: false,
         }));
       }
     },
